@@ -72,20 +72,20 @@ export default function ContentInput({ onSubmit }: ContentInputProps) {
   }
 
   return (
-    <div className="md:space-y-4 bg-gradient-to-br from-orange-50 via-amber-50 to-white md:p-4 rounded-xl">
+    <div className="md:space-y-4 bg-slate-900/40 border border-slate-900/80 md:p-4 rounded-xl">
       {showFileUpload ? (
         <div className="space-y-4">
           <FileUpload onUpload={handleFileUpload} disabled={isUploading} />
           {isUploading && (
-            <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-              <div className="w-4 h-4 border-2 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="flex items-center justify-center space-x-2 text-sm text-slate-400">
+              <div className="w-4 h-4 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
               <span>Uploading file...</span>
             </div>
           )}
           <div className="flex justify-end">
             <button
               onClick={() => setShowFileUpload(false)}
-              className="text-gray-600 hover:text-orange-600 text-sm font-medium transition-colors"
+              className="text-slate-400 hover:text-cyan-400 text-sm font-medium transition-colors"
               disabled={isUploading}
             >
               Cancel
@@ -101,16 +101,16 @@ export default function ContentInput({ onSubmit }: ContentInputProps) {
               onChange={(e) => setText(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
-              className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-orange-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none text-gray-800"
+              className="w-full px-4 py-3 bg-black/40 backdrop-blur-sm border border-slate-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent resize-none text-slate-100 placeholder-slate-500 text-sm"
               rows={3}
             />
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center gap-3">
             <motion.button
               type="button"
               onClick={() => setShowFileUpload(true)}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center bg-yellow-300 rounded-sm p-2 space-x-2 text-gray-600 hover:text-black transition-colors"
+              className="flex items-center bg-[#0a1128] hover:bg-[#0f1b3d] border border-blue-500/20 hover:border-cyan-500/40 rounded-lg py-2.5 px-4 space-x-2 text-cyan-400 hover:text-cyan-300 transition-all duration-300 cursor-pointer"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -120,16 +120,15 @@ export default function ContentInput({ onSubmit }: ContentInputProps) {
                   d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
                 />
               </svg>
-              <span className="font-medium">Upload File</span>
+              <span className="font-semibold text-sm">Upload File</span>
             </motion.button>
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              disabled={!text.trim()}
-              className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] hover:from-[#1D4ED8] hover:via-[#2563EB] hover:to-[#1D4ED8] text-white font-semibold [text-shadow:0_1px_2px_rgba(0,0,0,0.45)] tracking-wide px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-blue-900/20 hover:shadow-blue-700/30 disabled:from-slate-800/80 disabled:to-slate-800/80 disabled:text-slate-500 disabled:cursor-not-allowed cursor-pointer"
             >
-              Save
+              Save Content
             </motion.button>
           </div>
         </form>
