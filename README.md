@@ -1,36 +1,187 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 ZeroLogin
 
-## Getting Started
+> **Share freely. Leave no trace.**
 
-First, run the development server:
+ZeroLogin is a modern, privacy-first temporary sharing platform that allows users to create anonymous spaces to securely share files, images, text notes, links, and collaborate without creating an account.
+
+---
+
+## 🌐 Live Demo
+
+🔗 **Website:** _Coming Soon_
+
+
+# ✨ Features
+
+- 🔒 Anonymous Sharing
+- 🚫 No Registration Required
+- 📁 Temporary Spaces
+- 🔗 Custom Space URLs
+- 🔐 Password Protected Spaces
+- ⏳ Automatic Expiration
+- 📂 File Sharing
+- 🖼️ Image Sharing
+- 📝 Text Notes
+- 🌍 URL Sharing
+- 🖱️ Drag & Drop Upload
+- 🎨 Collaborative Whiteboard
+- 📦 ZIP Download
+- 📱 Progressive Web App (PWA)
+- 📲 Installable on Mobile & Desktop
+- 📱 Fully Responsive Design
+- ⚡ Fast & Lightweight
+- 🔐 Privacy First
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- Zustand
+
+### Backend
+
+- Next.js Route Handlers
+
+### Database
+
+- Upstash Redis
+
+### PWA
+
+- Service Worker
+- Web Manifest
+
+### Deployment
+
+- Vercel
+
+---
+
+# 📸 Application Screenshots
+## Home
+
+![Home](public/sshots/sshot1)
+
+---
+
+## Create Space
+
+![Create Space](public/sshots/sshot3)
+
+---
+
+## Space
+
+![Space](public/sshots/sshot2)
+
+---
+## Space settings
+
+![Space](public/sshots/sshot4)
+
+---
+
+## Whiteboard
+
+![Whiteboard](public/sshots/sshot5)
+
+---
+
+## Mobile View
+
+![Mobile](public/sshots/sshot6)
+
+---
+
+# ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/SnehaAN144/zerologin.git
+```
+
+Go into the project
+
+```bash
+cd zerologin
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Create a `.env.local` file and configure your environment variables.
+
+Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# 🚀 Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. Open ZeroLogin.
+2. Create a new Space.
+3. (Optional) Choose a custom Space URL.
+4. Share the generated link.
+5. Upload files, images, notes, or links.
+6. Collaborate using the Whiteboard.
+7. Share anonymously.
+8. Content expires automatically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 🔮 Future Improvements
 
-## Deploy on Vercel
+- 🔄 Real-time collaboration
+- 👥 Live presence indicators
+- 📹 Voice & video sharing
+- 📋 Markdown editor
+- 📊 Storage usage insights
+- 🌍 Multi-language support
+- 📱 Native mobile application
+- 🗂️ Folder upload support
+- 📦 Bulk downloads
+- 🔍 Search within spaces
+- ☁️ Cloud storage integrations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 👩‍💻 Contributor
+
+### Sneha Arun Naik
+
+**4th Year Undergraduate | Aspiring Software Engineer**
+
+GitHub:
+
+```
+https://github.com/SnehaAN144
+```
+
+Email:
+
+```
+snehanaik144@gmail.com
+```
+
+---
