@@ -8,7 +8,7 @@ ZeroLogin is a modern, privacy-first temporary sharing platform that allows user
 
 ## 🌐 Live Demo
 
-🔗 **Website:** _Coming Soon_
+🔗 https://zerologin.vercel.app
 
 
 # ✨ Features
