@@ -57,8 +57,10 @@ export default function FileUpload({ onUpload, disabled }: FileUploadProps) {
       />
       <motion.div
         onDragEnter={handleDrag}
-        className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors ${
-          dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300 hover:border-gray-400"
+        className={`border-2 border-dashed rounded-lg p-5 text-center cursor-pointer transition-all duration-300 ${
+          dragActive
+            ? "border-cyan-500 bg-cyan-950/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]"
+            : "border-slate-800 hover:border-slate-700 bg-black/20"
         }`}
       >
         <div
@@ -69,7 +71,7 @@ export default function FileUpload({ onUpload, disabled }: FileUploadProps) {
           onDragOver={handleDrag}
           onDrop={handleDrop}
         >
-          <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-8 h-8 text-slate-500 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -77,10 +79,10 @@ export default function FileUpload({ onUpload, disabled }: FileUploadProps) {
               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
             />
           </svg>
-          <div className="text-sm font-medium text-gray-700">
+          <div className="text-sm font-semibold text-slate-300">
             {dragActive ? "Drop file here" : "Click to upload or drag and drop"}
           </div>
-          <p className="text-xs text-gray-500">Images, PDFs, documents, and other files (max 50MB)</p>
+          <p className="text-xs text-slate-500">Images, PDFs, documents, and other files (max 50MB)</p>
         </div>
       </motion.div>
     </div>
