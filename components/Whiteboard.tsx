@@ -26,13 +26,21 @@ export default function Whiteboard({ spaceId, password }: { spaceId: string; pas
   const [redo, setRedo] = useState<WhiteboardElement[]>([])
   const drawing = useRef<WhiteboardElement | null>(null)
   const elementsRef = useRef<WhiteboardElement[]>([])
-  const requestHeaders = useCallback(() => password ? { "x-room-password": password } : {}, [password])
+  const requestHeaders = useCallback((): HeadersInit => {
+    const headers = new Headers()
+    if (password) headers.set("x-room-password", password)
+    return headers
+  }, [password])
 
   const commit = useCallback((next: WhiteboardElement[], persist = true) => {
     const valid = validateShapes(next)
     elementsRef.current = valid
     setElements(valid)
-    if (persist) fetch(`/api/rooms/${spaceId}/whiteboard`, { method: "PUT", headers: { "Content-Type": "application/json", ...requestHeaders() }, body: JSON.stringify(valid) }).catch(() => undefined)
+    if (persist) {
+      const headers = new Headers(requestHeaders())
+      headers.set("Content-Type", "application/json")
+      fetch(`/api/rooms/${spaceId}/whiteboard`, { method: "PUT", headers, body: JSON.stringify(valid) }).catch(() => undefined)
+    }
   }, [requestHeaders, spaceId])
 
   useEffect(() => {
