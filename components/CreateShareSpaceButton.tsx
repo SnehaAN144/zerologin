@@ -1,106 +1,110 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
+import { ArrowRight, LoaderCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function CreateRoomButton() {
-  const [isCreating, setIsCreating] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [isHovered, setIsHovered] = useState(false)
-  const router = useRouter()
+export default function CreateSpaceButton() {
+  const router = useRouter();
+  const [customSpaceId, setCustomSpaceId] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const createRoom = async () => {
-    setIsCreating(true)
-    setError(null)
+  const validSpaceId = (value: string) =>
+    !value ||
+    (value.length >= 3 && value.length <= 30 && /^[a-z0-9-_]+$/.test(value));
+  const normalizedId = customSpaceId.toLowerCase().replace(/\s+/g, "");
+  const validationError =
+    normalizedId && !validSpaceId(normalizedId)
+      ? "Use 3–30 lowercase letters, numbers, hyphens, or underscores."
+      : null;
+
+  const createSpace = async () => {
+    if (validationError) return;
+    setIsCreating(true);
+    setError(null);
 
     try {
-      console.log("🚀 Creating room...")
       const response = await fetch("/api/rooms", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customRoomId: normalizedId }),
         cache: "no-store",
-      })
-
-      console.log("📡 Response status:", response.status)
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log("✅ Room created:", data.roomId)
-
-        // Add a small delay before navigation to ensure the room is fully stored
-        await new Promise((resolve) => setTimeout(resolve, 200))
-
-        router.push(`/${data.roomId}`)
-      } else {
-        const errorData = await response.json().catch(() => ({ error: "Unknown error" }))
-        console.error("❌ Failed to create room:", errorData)
-        setError(errorData.error || "Failed to create room")
-      }
-    } catch (error) {
-      console.error("❌ Network error:", error)
-      setError("Network error. Please check your connection and try again.")
+      });
+      const data = await response
+        .json()
+        .catch(() => ({ error: "Unable to create space." }));
+      if (!response.ok) throw new Error(data.error);
+      router.push(`/${data.roomId}`);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "Unable to create space. Please try again.",
+      );
     } finally {
-      setIsCreating(false)
+      setIsCreating(false);
     }
-  }
-
-  const handleCleanup = async () => {
-    try {
-      console.log("🧹 Triggering cleanup...")
-      await fetch("/api/cleanup", { method: "POST" })
-      console.log("✅ Cleanup completed")
-      setError(null)
-    } catch (error) {
-      console.error("❌ Cleanup failed:", error)
-    }
-  }
+  };
 
   return (
-    <div className="space-y-4">
-      <motion.button
-        onClick={createRoom}
-        disabled={isCreating} 
-        whileTap={{ scale: 0.98 }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-        className="relative bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
-      >
-        <span className="relative z-10">
-          {isCreating ? (
-            <div className="flex items-center space-x-2">
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span>Creating Room...</span>
-            </div>
-          ) : (
-            "🚀 Create a Room"
-          )}
-        </span>
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-          initial={{ x: '-100%' }}
-          animate={{ x: isHovered && !isCreating ? '100%' : '-100%' }}
-          transition={{ duration: 0.6 }}
-        />
-      </motion.button>
-
-      {error && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm space-y-2"
+    <div className="w-full max-w-md">
+      <div className="space-y-2">
+        <label
+          htmlFor="custom-space-url"
+          className="text-sm font-medium text-slate-200"
         >
-          <p>{error}</p>
-          <button
-            onClick={handleCleanup}
-            className="text-xs bg-red-100 hover:bg-red-200 px-2 py-1 rounded transition-colors"
-          >
-            Try Cleanup & Retry
-          </button>
-        </motion.div>
+          Custom Space URL <span className="text-slate-500">(Optional)</span>
+        </label>
+        <div className="flex h-12 items-center rounded-xl border border-[#232B36] bg-[#0B0F14] px-3 transition-colors focus-within:border-[#4F8CFF] focus-within:ring-4 focus-within:ring-[#4F8CFF]/10">
+          <span className="select-none font-mono text-sm text-slate-500">
+            /
+          </span>
+          <input
+            id="custom-space-url"
+            value={customSpaceId}
+            onChange={(event) => setCustomSpaceId(event.target.value)}
+            placeholder="example-space"
+            autoComplete="off"
+            className="min-w-0 flex-1 bg-transparent px-2 text-sm text-[#F5F7FA] outline-none placeholder:text-slate-600"
+          />
+        </div>
+        <p
+          className={
+            validationError
+              ? "text-xs text-[#EF4444]"
+              : "text-xs text-[#94A3B8]"
+          }
+        >
+          {validationError ?? "Leave blank to generate a random URL."}
+        </p>
+      </div>
+      <motion.button
+        type="button"
+        onClick={createSpace}
+        disabled={isCreating || !!validationError}
+        whileTap={{ scale: 0.98 }}
+        className="mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#4F8CFF] px-5 text-sm font-semibold text-white shadow-lg shadow-[#4F8CFF]/15 transition-colors hover:bg-[#6AA5FF] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {isCreating ? (
+          <>
+            <LoaderCircle className="size-4 animate-spin" /> Creating Space...
+          </>
+        ) : (
+          <>
+            Create Space <ArrowRight className="size-4" />
+          </>
+        )}
+      </motion.button>
+      {error && (
+        <p
+          role="alert"
+          className="mt-3 rounded-xl border border-[#EF4444]/25 bg-[#EF4444]/10 px-3 py-2 text-sm text-[#fecaca]"
+        >
+          {error}
+        </p>
       )}
     </div>
-  )
+  );
 }
