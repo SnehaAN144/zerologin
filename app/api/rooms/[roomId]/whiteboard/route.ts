@@ -1,0 +1,8 @@
+import { NextResponse } from "next/server"
+import { storage, verifyPassword } from "@/lib/storage"
+import type { WhiteboardElement } from "@/lib/types"
+import { randomUUID } from "crypto"
+
+async function authorize(request: Request, roomId: string) { const room = await storage.getRoom(roomId); if (!room) return null; if (room.passwordHash && !verifyPassword(request.headers.get("x-room-password") || "", room.passwordHash)) return "unauthorized" as const; return room }
+export async function GET(request: Request, { params }: { params: Promise<{ roomId: string }> }) { const room = await authorize(request, (await params).roomId); if (!room) return NextResponse.json({ error: "Space not found" }, { status: 404 }); if (room === "unauthorized") return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); return NextResponse.json(room.whiteboard || []) }
+export async function PUT(request: Request, { params }: { params: Promise<{ roomId: string }> }) { const room = await authorize(request, (await params).roomId); if (!room) return NextResponse.json({ error: "Space not found" }, { status: 404 }); if (room === "unauthorized") return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); const elements = await request.json() as WhiteboardElement[]; if (!Array.isArray(elements)) return NextResponse.json({ error: "Invalid board" }, { status: 400 }); const ids = new Set<string>(); const unique = elements.filter((shape) => shape && Array.isArray(shape.points)).map((shape) => { const id = typeof shape.id === "string" && !ids.has(shape.id) ? shape.id : randomUUID(); ids.add(id); return { ...shape, id } }); await storage.setRoom(room.id, { ...room, whiteboard: unique }); return NextResponse.json(unique) }
