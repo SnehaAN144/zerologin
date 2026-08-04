@@ -68,36 +68,36 @@ ZeroLogin is a modern, privacy-first temporary sharing platform that allows user
 # 📸 Application Screenshots
 ## Home
 
-![Home](public/sshots/sshot1)
+![Home](public\sshots\sshot1.png)
 
 ---
 
 ## Create Space
 
-![Create Space](public/sshots/sshot3)
+![Create Space](public/sshots/sshot3.png)
 
 ---
 
 ## Space
 
-![Space](public/sshots/sshot2)
+![Space](public/sshots/sshot2.png)
 
 ---
 ## Space settings
 
-![Space](public/sshots/sshot4)
+![Space](public/sshots/sshot4.png)
 
 ---
 
 ## Whiteboard
 
-![Whiteboard](public/sshots/sshot5)
+![Whiteboard](public/sshots/sshot5.png)
 
 ---
 
 ## Mobile View
 
-![Mobile](public/sshots/sshot6)
+![Mobile](public/sshots/sshot6.png)
 
 ---
 
